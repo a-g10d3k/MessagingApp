@@ -1,0 +1,68 @@
+﻿@model MessageModel
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<div id="messaging-ui" class="text-center">
+    <h3 id="username-display">@Model.Sender</h3>
+    <form name="send-message" method="post">
+    <div class="align-items-center d-flex flex-column">
+            <input asp-for="Sender" type="hidden" />
+            <span asp-validation-for="Sender" class="text-danger"></span>
+        <div class="mb-1 w-50">
+            <input asp-for="Recipent" id="recipent-input" placeholder="Message recipent" class="form-control"/>
+            <span asp-validation-for="Recipent" class="text-danger"></span>
+        </div>
+        <div class="mb-1 w-50">
+            <input asp-for="Title" placeholder="Message title" class="form-control"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-1 w-50">
+            <textarea asp-for="Body" placeholder="Write your message here (Max @MessageModel.MessageMaxLength characters)" class="form-control"> </textarea>
+            <span asp-validation-for="Body" class="text-danger"></span>
+        </div>
+        <div class="mb-1 w-25 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+    </form>
+    <div id="table-wrapper"></div>
+</div>
+<div class="modal" tabindex="-1" id="message-modal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="message-title">Message title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Sent by: <span id="message-sender" class="text-secondary">Sender</span></h6>
+                        </div>
+                        <div class="col">
+                            <h6>On: <span id="message-created-at" class="text-secondary">25.09.2022 11:12:06</span></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                    </div>
+                    <div class="row shadow rounded border border-secondary">
+                        <p id="message-body" class="h5 my-1">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium et dui vitae convallis. Nunc sit amet magna erat. Morbi ut viverra nunc. Sed vitae feugiat mi. Sed ut venenatis quam, malesuada sagittis ipsum. Fusce sodales pharetra ante, a ullamcorper justo tristique iaculis. Sed in volutpat erat, vel gravida turpis. Nam posuere mi turpis, ut consequat dui tristique eu. Fusce enim felis, molestie tincidunt nisi quis, posuere egestas eros. Sed orci arcu, condimentum at magna eu, dapibus aliquet erat. Donec scelerisque magna non quam sollicitudin varius. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var username = "@Model.Sender"
+    </script>
+    <script src="~/js/messaging.js"></script>
+}

@@ -1,0 +1,26 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="Messages" method="GET">
+    <div class="align-items-center d-flex flex-column">
+        <div class="mb-1 w-25">
+            <input asp-for="Username" id="username-input" placeholder="Enter your username" class="form-control"/>
+        </div>
+        <div class="mb-1 w-25 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger mt-3 center-text" })
+    </div>
+</form>
+
+
+@section scripts
+{
+    <script>
+    $('#username-input').autocomplete({
+    source: '/Home/SearchUsers'
+    });
+    </script>
+}
